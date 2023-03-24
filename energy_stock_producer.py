@@ -11,12 +11,12 @@ producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                          value_serializer=lambda x:
                          x.encode('utf-8'))
 
-tech_company_tickers = "AAPL GOOGL NVDA META TSLA" # Apple, Google, NVIDIA, META, Tesla
+energy_company_tickers = "XOM CVX BP TOT RDS-A" # ExxonMobil (XOM), Chevron (CVX), BP plc (BP), Total SE (TOT), and Royal Dutch Shell plc (RDS-A)
 
-topic_name = "tech_stocks"
+topic_name = "energy_stocks"
 
 while True:
-	data = yf.download(tickers=tech_company_tickers, start=current_date, interval='2m') #use this one in case for real implementation
+	data = yf.download(tickers=energy_company_tickers, start=current_date, interval='2m') #use this one in case for real implementation
 
 	data = data.reset_index(drop=False)
 	if len(data) != 0:
@@ -25,11 +25,11 @@ while True:
 		
 		msg = json.dumps(my_dict)
 		print(msg)
-		producer.send(topic_name, key=b'Tech Stock Update', value=msg)
+		producer.send(topic_name, key=b'Energy Stock Update', value=msg)
 		producer.flush()
 	else:
 		msg = 'stock market is not open'
-		producer.send(topic_name, key=b'Tech Stock Update', value=msg)
+		producer.send(topic_name, key=b'Energy Stock Update', value=msg)
 
 	print(f"Producing to {topic_name}")
 	time.sleep(120)
