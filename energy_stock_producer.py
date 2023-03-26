@@ -11,7 +11,7 @@ producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                          value_serializer=lambda x:
                          x.encode('utf-8'))
 
-energy_company_tickers = "XOM CVX BP TOT RDS-A" # ExxonMobil (XOM), Chevron (CVX), BP plc (BP), Total SE (TOT), and Royal Dutch Shell plc (RDS-A)
+energy_company_tickers = "XOM CVX BP BKR COP" # ExxonMobil (XOM), Chevron (CVX), BP plc (BP), Baker Hughes (BKR), and Conoco Phillips (COP)
 
 topic_name = "energy_stocks"
 
